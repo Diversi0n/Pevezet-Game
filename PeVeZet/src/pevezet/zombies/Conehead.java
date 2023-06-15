@@ -4,6 +4,7 @@
  */
 package pevezet.zombies;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
@@ -14,6 +15,25 @@ public class Conehead extends Zombie {
 
     public Conehead(int x, int y, PImage[] idle, PImage[] eat) {
         super(550, 100, 2, 21, 11, x, y, 550, idle, eat);
+    }
+    
+    @Override
+    public void drawEat(PApplet app) {
+        if(ctr > -1)
+        {
+//            System.out.println(ctr + " " + speed + " " + eatSize);
+            app.image(eat[ctr / (4*speed) % eatSize],x,y-20, 170, 170);
+            ctr %= 4 * speed * eatSize;
+        }
+    }
+
+    @Override
+    public void drawIdle(PApplet app) {
+        if(ctr > -1)
+        {
+            app.image(idle[ctr / (2*speed) % idleSize],x,y-20, 170, 170);
+            ctr %= 2 * speed * idleSize;
+        }
     }
     
     public Conehead(Zombie z) {
