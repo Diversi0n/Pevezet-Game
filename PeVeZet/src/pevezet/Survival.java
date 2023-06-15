@@ -28,14 +28,14 @@ public class Survival extends PApplet {
     private static final int FPS = 60;
     
     //Asset
-    private PImage bg, sun, pick, pausemenu, shovelImg;
+    private PImage bg, sun, pick, pausemenu, shovelImg, over;
     private String lagu = "src/assets/Map/GrasswalkTheme.wav";
     private PlayMusic ThemeSong = new PlayMusic(lagu);
     
     //Menu
     private static int time, delay = 1000, now;
     private GUIButton grass, pool;
-    private boolean playgrass, playpool, pause;
+    private boolean playgrass, playpool, pause, gameover;
     
     //Gameplay
     //choosePlant, zombies, bullets -> arraylist untuk semua plant, zombie, dan peluru
@@ -64,9 +64,11 @@ public class Survival extends PApplet {
         //Setup game
         bg = loadImage("src/assets/Survival/Menu.png");
         pausemenu = loadImage("src/assets/Map/Pause.png");
+        over = loadImage("src/assets/Map/Game Over.png");
         playgrass = false;
         playpool = false;
         pause = false;
+        gameover = false;
         pickplant = false;
         time = 0;
         playerSun = 1000;
@@ -440,6 +442,14 @@ public class Survival extends PApplet {
             return;
         }
         background(bg);
+        if(gameover) {
+            ThemeSong.pause();
+            noStroke();
+            fill(0, 0, 0, 70);
+            rect(0,0,1280,720);
+            image(over,160,45,950,600);
+            return;
+        }
         if(playgrass || playpool){
             //Hover Menu
             hoverMenuGame();
@@ -555,12 +565,12 @@ public class Survival extends PApplet {
             }
         }
         //Add zombie
-        if(time % 10 == 0)
+        if(time == 1 || time % 20 == 0)
         {
             Random rand = new Random();
             int idx = rand.nextInt(0, 5);
 //            Zombie temp = zombies.get(rand.nextInt(0, 7));
-            Zombie temp = zombies.get(5);
+            Zombie temp = zombies.get(4);
             if(temp instanceof Basic)
                 zombieActive[idx].add(new Basic(temp));
             else if(temp instanceof Conehead)
@@ -848,10 +858,10 @@ public class Survival extends PApplet {
                 //Cek Lawn Mower
                 if(i.getX() < 40) {
                     if(lawnMower[j] == null) {
-                        fill(0, 0, 0);
-                        textSize(60);
-                        text("Game Over", 50, 100);
-                        pause = true;
+//                        fill(0, 0, 0);
+//                        textSize(60);
+//                        text("Game Over", 50, 100);
+                        gameover = true;
                     }
                     else {
                         lawnMower[j].setX(lawnMower[j].getX() + 1);
@@ -1014,15 +1024,35 @@ public class Survival extends PApplet {
             image(pausemenu,260,70,750,550);
             return true;
         }
-        else if(overRect(487,465,140,28)) {
+        else if(pause && overRect(487,465,140,28)) {
             pause = false;
             ThemeSong.resume();
             return true;              
         }
-        else if(overRect(635,465,140,28)) {
+        else if(pause && overRect(635,465,140,28)) {
             ThemeSong.stop();
             PApplet.main("pevezet.PeVeZet");
             surface.setVisible(false);
+            return true;
+        }
+        else if(gameover && overRect(460,450,140,28)) {
+            gameover = false;
+            ThemeSong.stop();
+            PApplet.main("pevezet.PeVeZet");
+            surface.setVisible(false);
+            return true;              
+        }
+        else if(gameover && overRect(660,450,140,28)) {
+            gameover = false;
+            ThemeSong.stop();
+            if(playgrass) {
+                setupGrass();
+                playGrass();
+            }
+            else if(playpool) {
+                setupPool();
+                playPool();
+            }
             return true;
         }
         return false;
