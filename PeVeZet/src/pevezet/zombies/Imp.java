@@ -4,6 +4,7 @@
  */
 package pevezet.zombies;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
@@ -30,6 +31,16 @@ public class Imp extends Zombie {
             return true;
         else
             return false;
+    }
+
+    @Override
+    public void drawEat(PApplet app) {
+        if(ctr > -1)
+        {
+//            System.out.println(ctr + " " + speed + " " + eatSize);
+            app.image(eat[ctr / (4*speed) % eatSize],x,y+20, 160, 180);
+            ctr %= 4 * speed * eatSize;
+        }
     }
 
     public int getYawal() {

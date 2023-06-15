@@ -4,6 +4,7 @@
  */
 package pevezet.zombies;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
@@ -14,6 +15,25 @@ public class DuckyTube extends Zombie {
 
     public DuckyTube(int x, int y, PImage[] idle, PImage[] eat) {
         super(180, 100, 2, 22, 21, x, y, 180, idle, eat);
+    }
+    
+    @Override
+    public void drawEat(PApplet app) {
+        if(ctr > -1)
+        {
+//            System.out.println(ctr + " " + speed + " " + eatSize);
+            app.image(eat[ctr / (4*speed) % eatSize],x,y-40, 210, 210);
+            ctr %= 4 * speed * eatSize;
+        }
+    }
+
+    @Override
+    public void drawIdle(PApplet app) {
+        if(ctr > -1)
+        {
+            app.image(idle[ctr / (2*speed) % idleSize],x,y-40, 210, 210);
+            ctr %= 2 * speed * idleSize;
+        }
     }
     
     public DuckyTube(Zombie z) {

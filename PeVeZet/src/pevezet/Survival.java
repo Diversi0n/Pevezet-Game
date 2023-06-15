@@ -312,7 +312,7 @@ public class Survival extends PApplet {
         
         idle = new PImage[100];
         eat = new PImage[100];
-        idleSize = 12;
+        idleSize = 11;
         eatSize = 52;
         for(int i = 0; i < idleSize; i++){
             idle[i] = loadImage("src/assets/Zombies/Football/walk/"+(int)Math.floor(i/100)+""+(int)Math.floor(i/10%10)+""+i%10+".png");
@@ -558,9 +558,17 @@ public class Survival extends PApplet {
         if(time % 10 == 0)
         {
             Random rand = new Random();
-            int idx = rand.nextInt(0, 5);
-//            Zombie temp = zombies.get(rand.nextInt(0, 7));
-            Zombie temp = zombies.get(5);
+            int idx = rand.nextInt(0, 6);
+            Zombie temp = zombies.get(rand.nextInt(0, 6));
+            // 0 Basic
+            // 1 Conehead
+            // 2 Ducky Tube
+            // 3 Snorkle
+            // 4 Football
+            // 5 Gargantuar
+//            Zombie temp = zombies.get(2);
+//            Zombie temp = zombies.get(rand.nextInt(0, 3));
+            
             if(temp instanceof Basic)
                 zombieActive[idx].add(new Basic(temp));
             else if(temp instanceof Conehead)

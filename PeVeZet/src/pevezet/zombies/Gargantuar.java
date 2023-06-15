@@ -4,6 +4,7 @@
  */
 package pevezet.zombies;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
@@ -22,6 +23,24 @@ public class Gargantuar extends Zombie {
         lempar = false;
     }
 
+    @Override
+    public void drawEat(PApplet app) {
+        if(ctr > -1)
+        {
+//            System.out.println(ctr + " " + speed + " " + eatSize);
+            app.image(eat[ctr / (4*speed) % eatSize],x,y-80, 200, 250);
+            ctr %= 4 * speed * eatSize;
+        }
+    }
+
+    @Override
+    public void drawIdle(PApplet app) {
+        if(ctr > -1){
+            app.image(idle[ctr / (2*speed) % idleSize],x,y-80, 200, 250);
+            ctr %= 2 * speed * idleSize;
+        }
+    }
+
     public boolean isLempar() {
         return lempar;
     }
@@ -32,3 +51,4 @@ public class Gargantuar extends Zombie {
     
     
 }
+

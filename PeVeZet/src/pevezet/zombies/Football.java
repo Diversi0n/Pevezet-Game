@@ -13,7 +13,7 @@ import processing.core.PImage;
 public class Football extends Zombie {
 
     public Football(int x, int y, PImage[] idle, PImage[] eat) {
-        super(1580, 100, 4, 12, 52, x, y, 1580, idle, eat);
+        super(1580, 100, 4, 11, 52, x, y, 1580, idle, eat);
     }
     
     public Football(Zombie z) {
