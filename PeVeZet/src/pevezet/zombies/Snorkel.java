@@ -22,7 +22,7 @@ public class Snorkel extends Zombie {
         if(ctr > -1)
         {
 //            System.out.println(ctr + " " + speed + " " + eatSize);
-            app.image(eat[ctr / (4*speed) % eatSize],x,y-40, 210, 210);
+            app.image(eat[ctr / (4*speed) % eatSize],x,y-30, 190, 190);
             ctr %= 4 * speed * eatSize;
         }
     }
@@ -31,7 +31,7 @@ public class Snorkel extends Zombie {
     public void drawIdle(PApplet app) {
         if(ctr > -1)
         {
-            app.image(idle[ctr / (2*speed) % idleSize],x,y-40, 210, 210);
+            app.image(idle[ctr / (2*speed) % idleSize],x,y-30, 190, 190);
             ctr %= 2 * speed * idleSize;
         }
     }

@@ -558,7 +558,7 @@ public class Survival extends PApplet {
         if(time % 10 == 0)
         {
             Random rand = new Random();
-            int idx = rand.nextInt(0, 6);
+            int idx = rand.nextInt(0, 5);
             Zombie temp = zombies.get(rand.nextInt(0, 6));
             // 0 Basic
             // 1 Conehead
