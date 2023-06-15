@@ -27,14 +27,14 @@ public class Adventure extends PApplet {
     private static final int FPS = 60;
     
     //Asset
-    private PImage bg, sun, pick, pausemenu, shovelImg;
+    private PImage bg, sun, pick, pausemenu, shovelImg, over, win;
     private String lagu = "src/assets/Map/GrasswalkTheme.wav";
     private PlayMusic ThemeSong = new PlayMusic(lagu);
     
     //Menu
     private static int time, delay = 1000, now;
     private GUIButton grass, pool;
-    private boolean playgrass, playpool, pause;
+    private boolean playgrass, playpool, pause, gameover, victory;
     
     //Gameplay
     //choosePlant, zombies, bullets -> arraylist untuk semua plant, zombie, dan peluru
@@ -77,11 +77,15 @@ public class Adventure extends PApplet {
         food = 3;
         plantFood = new GUIButton(860,0,85,85, new Color(255,255,0, 0));
         plantFoodSelect = false;
+        over = loadImage("src/assets/Map/Game Over.png");
+        win = loadImage("src/assets/Map/Win.png");
+        gameover = false;
         
         // Adventure
         pickplant = false;
         levelselect = true;
         playlevel = false;
+        victory = false;
         
         //Load image plant food
         plantFoodImg = new PImage[100];
@@ -385,6 +389,7 @@ public class Adventure extends PApplet {
                             tiles[i][j].setPlantable(false);
                         }
                 }
+                zombietotal=5;
             }
             else if(level==2){
                 plants.add(new Sunflower(choosePlant.get(0)));
@@ -396,16 +401,29 @@ public class Adventure extends PApplet {
                         }
                 }
                 bg = loadImage("src/assets/Map/Grasswalklevel2.png");
+                zombietotal=8;
             }
             else if(level>=3&&level<=5){
-                if(level>=3){
+                if(level==3){
+                    plants.add(new Sunflower(choosePlant.get(0)));
+                    plants.add(new Peashooter(choosePlant.get(1)));
                     plants.add(new Wallnut(choosePlant.get(4)));
+                    zombietotal=10;
                 }
-                else if(level>=4){
+                else if(level==4){
+                    plants.add(new Sunflower(choosePlant.get(0)));
+                    plants.add(new Peashooter(choosePlant.get(1)));
+                    plants.add(new Wallnut(choosePlant.get(4)));
                     plants.add(new PotatoMine(choosePlant.get(5)));
+                    zombietotal=12;
                 }
-                else if(level>=5){
+                else if(level==5){
+                    plants.add(new Sunflower(choosePlant.get(0)));
+                    plants.add(new Peashooter(choosePlant.get(1)));
+                    plants.add(new Wallnut(choosePlant.get(4)));
+                    plants.add(new PotatoMine(choosePlant.get(5)));
                     plants.add(new SnowPea(choosePlant.get(2)));
+                    zombietotal=14;
                 }
                 bg = loadImage("src/assets/Map/Grasswalk.png");
                 // Lawnmower Setup
@@ -430,21 +448,25 @@ public class Adventure extends PApplet {
             plantpicker.add(new SnowPea(choosePlant.get(2)));
             if(level==6){
                 plantpicker.add(new Lilypad(choosePlant.get(7)));
+                zombietotal=10;
             }
             else if(level==7){
                 plantpicker.add(new Lilypad(choosePlant.get(7)));
                 plantpicker.add(new TangleKelp(choosePlant.get(8)));
+                zombietotal=15;
             }
             else if(level==8){
                 plantpicker.add(new Lilypad(choosePlant.get(7)));
                 plantpicker.add(new TangleKelp(choosePlant.get(8)));
                 plantpicker.add(new CherryBomb(choosePlant.get(6)));
+                zombietotal=20;
             }
             else if(level==9){
                 plantpicker.add(new Lilypad(choosePlant.get(7)));
                 plantpicker.add(new TangleKelp(choosePlant.get(8)));
                 plantpicker.add(new CherryBomb(choosePlant.get(6)));
                 plantpicker.add(new Torchwood(choosePlant.get(3)));
+                zombietotal=25;
             }
             else if(level==10){
                 plantpicker.add(new Lilypad(choosePlant.get(7)));
@@ -452,6 +474,7 @@ public class Adventure extends PApplet {
                 plantpicker.add(new CherryBomb(choosePlant.get(6)));
                 plantpicker.add(new Torchwood(choosePlant.get(3)));
                 plantpicker.add(new CoconutCannon(choosePlant.get(9)));
+                zombietotal=30;
             }
             lagu = "src/assets/Map/PoolTheme.wav";
             ThemeSong = new PlayMusic(lagu);
@@ -502,7 +525,22 @@ public class Adventure extends PApplet {
         if(levelselect){
             background(bg);
         }
-        
+        if(gameover) {
+            ThemeSong.pause();
+            noStroke();
+            fill(0, 0, 0, 70);
+            rect(0,0,1280,720);
+            image(over,160,45,950,600);
+            return;
+        }
+        if(victory){
+            ThemeSong.pause();
+            noStroke();
+            fill(0, 0, 0, 70);
+            rect(0,0,1280,720);
+            image(win,160,45,950,600);
+            return;
+        }
         if(playlevel){
             background(bg);
             //Hover Menu
@@ -616,33 +654,68 @@ public class Adventure extends PApplet {
             }
         }
         //Add zombie
-        if(time % spawntime == 0)
+        if(time % 1 == 0)
         {
             if(spawntime>10){
                 spawntime--;
             }
             Random rand = new Random();
-            int idx = 0;
+            int idx = 0,ambil;
             if(level==1){
                 idx = 2;
                 zombieget=0;
-                if(zombietotal==0){
-                    cekclear=true;
-                }
-                zombietotal--;
             }
             else if(level==2){
                 idx = rand.nextInt(1, 4);
+                zombieget = 0;
             }
             else if(level<=5){
                 idx = rand.nextInt(0, 5);
+                if(time<=80){
+                    zombieget = 0;
+                }
+                else if(time<=160){
+                    zombieget = rand.nextInt(0, 2);
+                }
+                else if(time>160){
+                    ambil = rand.nextInt(1, 3);
+                    if(ambil==1&&level==5){
+                        zombieget = 4;
+                    }
+                    else{
+                        zombieget = rand.nextInt(0, 2);
+                    }
+                }
             }
             else if(level>5){
                 idx = rand.nextInt(0, 6);
+                if(time<=80){
+                    zombieget = 0;
+                }
+                else if(time<=160){
+                    zombieget = rand.nextInt(0, 3);
+                }
+                else if(time<=250&&level==5){
+                    ambil = rand.nextInt(1, 3);
+                    if(ambil==1&&level>=7){
+                        zombieget = rand.nextInt(0, 4);
+                    }
+                    else{
+                        zombieget = rand.nextInt(0, 3);
+                    }
+                }
+                else if(time>250){
+                    zombieget = rand.nextInt(0,6);
+                }
+            }
+            zombietotal--;
+            // Cek Zombie uda keluar semua
+            if(zombietotal==0){
+                cekclear=true;
             }
             if(cekclear!=true){
     //            Zombie temp = zombies.get(rand.nextInt(0, 7));
-                Zombie temp = zombies.get(5);
+                Zombie temp = zombies.get(zombieget);
                 if(temp instanceof Basic)
                     zombieActive[idx].add(new Basic(temp));
                 else if(temp instanceof Conehead)
@@ -658,14 +731,29 @@ public class Adventure extends PApplet {
                 else if(temp instanceof Snorkel)
                     zombieActive[idx].add(new Snorkel(temp));
                 temp = zombieActive[idx].get(zombieActive[idx].size() - 1);
-                if(playgrass)
+                if(level<=5)
                     temp.setY(idx*temp.getY() + 70);
-                else if(playpool)
+                else if(level>=6)
                     temp.setY(idx*temp.getY() + 60);
+            }
+            if(cekclear){
+                if(zombieActive[0].size()==0&&zombieActive[1].size()==0&&zombieActive[2].size()==0&&zombieActive[3].size()==0&&zombieActive[4].size()==0){
+                    victory = true;
+                }
             }
         }
     }
-    
+    public void resetLevel(){
+        time=0;
+        levelselect=true;
+        cekclear=false;
+        playlevel=false;
+        ThemeSong.stop();
+        bg = loadImage("src/assets/Adventure/LevelSelect.png");
+        lagu = "src/assets/Adventure/LevelSelect.wav";
+        ThemeSong = new PlayMusic(lagu);
+        ThemeSong.PlayMusic();
+    }
     public boolean cekTembak(int y) {
         for(Zombie i : zombieActive[y]) {
             if(i.getX() <= 1220) {
@@ -935,11 +1023,11 @@ public class Adventure extends PApplet {
                     i.setWalkCtr(i.getWalkCtr() + i.getSpeed());
                 //Cek Lawn Mower
                 if(i.getX() < 40) {
-                    if(lawnMower[j] == null) {
-                        fill(0, 0, 0);
-                        textSize(60);
-                        text("Game Over", 50, 100);
-                        pause = true;
+                    if(level==1||level==2){
+                        gameover = true;
+                    }
+                    else if(lawnMower[j] == null) {
+                        gameover = true;
                     }
                     else {
                         lawnMower[j].setX(lawnMower[j].getX() + 1);
@@ -1102,15 +1190,43 @@ public class Adventure extends PApplet {
             image(pausemenu,260,70,750,550);
             return true;
         }
-        else if(overRect(487,465,140,28)) {
+        else if(pause &&overRect(487,465,140,28)) {
             pause = false;
             ThemeSong.resume();
             return true;              
         }
-        else if(overRect(635,465,140,28)) {
+        else if(pause && overRect(635,465,140,28)) {
             ThemeSong.stop();
             PApplet.main("pevezet.PeVeZet");
             surface.setVisible(false);
+            return true;
+        }
+        else if(gameover && overRect(460,450,140,28)) {
+            gameover = false;
+            ThemeSong.stop();
+            PApplet.main("pevezet.PeVeZet");
+            surface.setVisible(false);
+            return true;              
+        }
+        else if(gameover && overRect(660,450,140,28)) {
+            gameover = false;
+            ThemeSong.stop();
+            time = 0;
+            setupLevel();
+            playLevel();
+            return true;
+        }
+        else if(victory && overRect(460,450,140,28)) {
+            victory = false;
+            ThemeSong.stop();
+            PApplet.main("pevezet.PeVeZet");
+            surface.setVisible(false);
+            return true;              
+        }
+        else if(victory && overRect(660,450,140,28)) {
+            victory = false;
+            ThemeSong.stop();
+            resetLevel();
             return true;
         }
         return false;
