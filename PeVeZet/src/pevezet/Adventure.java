@@ -654,7 +654,7 @@ public class Adventure extends PApplet {
             }
         }
         //Add zombie
-        if(time % 1 == 0)
+        if(time % spawntime == 0)
         {
             if(spawntime>10){
                 spawntime--;
