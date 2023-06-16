@@ -17,11 +17,14 @@ public class Conehead extends Zombie {
         super(550, 100, 2, 21, 11, x, y, 550, idle, eat);
     }
     
+    public Conehead(Zombie z) {
+        super(z);
+    }
+    
     @Override
     public void drawEat(PApplet app) {
         if(ctr > -1)
         {
-//            System.out.println(ctr + " " + speed + " " + eatSize);
             app.image(eat[ctr / (4*speed) % eatSize],x,y-20, 170, 170);
             ctr %= 4 * speed * eatSize;
         }
@@ -34,9 +37,5 @@ public class Conehead extends Zombie {
             app.image(idle[ctr / (2*speed) % idleSize],x,y-20, 170, 170);
             ctr %= 2 * speed * idleSize;
         }
-    }
-    
-    public Conehead(Zombie z) {
-        super(z);
     }
 }

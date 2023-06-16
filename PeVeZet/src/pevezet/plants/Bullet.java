@@ -49,18 +49,10 @@ public class Bullet {
         return bullet;
     }
 
-    public void setBullet(GUIButton bullet) {
-        this.bullet = bullet;
-    }
-
     public int getDmg() {
         return dmg;
     }
-
-    public void setDmg(int dmg) {
-        this.dmg = dmg;
-    }
-
+    
     public String getType() {
         return type;
     }

@@ -25,7 +25,7 @@ public class CherryBomb extends Plant {
         super(p);
     }
     
-    public void setBatas (Tile t, int i, int j){
+    public void setBatas(Tile t, int i, int j){
         batasKiri = t.getTile().getX(); 
         if (j-1 > -1) batasKiri -= t.getTile().getWidth();
         
@@ -42,11 +42,9 @@ public class CherryBomb extends Plant {
                 return;
             }
         }
-
     }
 
     private boolean zombieInRange(Zombie z) {
         return z.getX() >= batasKiri && z.getX() <= batasKanan;
     }
-
 }

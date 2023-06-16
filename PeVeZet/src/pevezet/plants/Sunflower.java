@@ -4,11 +4,7 @@
  */
 package pevezet.plants;
 
-import java.awt.Color;
 import java.util.ArrayList;
-import pevezet.GUIButton;
-import pevezet.Survival;
-import processing.core.PApplet;
 import processing.core.PImage;
 
 /**

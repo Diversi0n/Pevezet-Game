@@ -14,9 +14,6 @@ public class Tile {
     protected boolean isWater, hasLily,plantable; 
     
     public Tile(int y, int x, int height, int width, int startx, int starty) {
-//        if(y == 2)
-//            tile = new GUIButton(300+100*x,100+115*y,100,120, new Color(0,255,0));
-//        else
         tile = new GUIButton(startx+(width+1)*x,starty+(height+1)*y,width,height, new Color(0,255,0));
         this.plantable = true;
         this.plant = new ArrayList();

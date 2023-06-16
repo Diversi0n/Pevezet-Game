@@ -33,50 +33,31 @@ public class CoconutCannon extends Plant {
     
     public void drawCoolDown(PApplet app){
         if(ctr > -1)
-        {
-//            if(this instanceof GreatWall)
-//                app.image(idle[ctr / 5 % idleSize],x,y, 120, 240);
-//            else
-                app.image(attack[17],x,y, 120, 120);
-//            ctr %= 5 * idleSize;
-        }
+            app.image(attack[17],x,y, 120, 120);
     }
     
     public boolean drawAttack(PApplet app){
         
-//        System.out.println(ctr + " " + Math.abs(ctr/5) + " " + cocoCtr);
-//        if(ctr > -1)
-//        {
-//            if(this instanceof GreatWall)
-//                app.image(idle[ctr / 5 % idleSize],x,y, 120, 240);
-//            else
-                if(Math.abs(ctr/5) > 17 && cocoCtr == 1) {
-                    if(Math.abs(ctr/5) == 20) {
-                        this.cocoCtr--;
-                        this.ctr = 0;
-                    }
-                    else
-                        app.image(attack[Math.abs(ctr/5)],x,y, 120, 120);
-                }
-                else {
-                    app.image(attack[Math.min(Math.abs(ctr/5), 17)],x,y, 120, 120);
-                }
-//                if(Math.min(Math.abs(ctr/5), 17) == 17 && this.cocoCtr == 0)
-//                    this.cocoCtr = this.coolTime;
-                if(Math.abs((ctr+1)/5) == 13 && Math.abs(ctr/5) == 14)
-                    return true;
-                else if(Math.min(Math.abs(ctr/5), 17) == 17) {
-//                    System.out.println("masuk " + this.cocoCtr);
-                    if(this.cocoCtr > 1) {
-                        this.cocoCtr--;
-                        if(this.cocoCtr == 1)
-                            this.ctr = -90; 
-                    }
-//                    if(this.cocoCtr == 0)
-//                        this.ctr = 0;
-                }
-//            ctr %= 5 * idleSize;
-//        }
+        if(Math.abs(ctr/5) > 17 && cocoCtr == 1) {
+            if(Math.abs(ctr/5) == 20) {
+                this.cocoCtr--;
+                this.ctr = 0;
+            }
+            else
+                app.image(attack[Math.abs(ctr/5)],x,y, 120, 120);
+        }
+        else {
+            app.image(attack[Math.min(Math.abs(ctr/5), 17)],x,y, 120, 120);
+        }
+        if(Math.abs((ctr+1)/5) == 13 && Math.abs(ctr/5) == 14)
+            return true;
+        else if(Math.min(Math.abs(ctr/5), 17) == 17) {
+            if(this.cocoCtr > 1) {
+                this.cocoCtr--;
+                if(this.cocoCtr == 1)
+                    this.ctr = -90; 
+            }
+        }
         return false;
     }
     

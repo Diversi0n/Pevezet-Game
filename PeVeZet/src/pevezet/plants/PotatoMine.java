@@ -64,7 +64,6 @@ public class PotatoMine extends Plant {
     private void count() {
         if (this.ctr == 39) {
             this.potatoCtr++;
-            System.out.println(this.potatoCtr);
         }
     }
 
@@ -83,9 +82,7 @@ public class PotatoMine extends Plant {
         }
         if (zombiesTerkena.size() > 0) {
             this.meledak = true;
-
             this.delayHilang = this.potatoCtr;
-            System.out.println("delay :" + delayHilang);
         }
     }
 

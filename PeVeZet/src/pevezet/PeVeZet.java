@@ -5,7 +5,6 @@
 package pevezet;
 
 import java.awt.Color;
-import java.io.*;
 import processing.core.PApplet;
 import static processing.core.PConstants.PI;
 import processing.core.PImage;

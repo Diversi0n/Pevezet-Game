@@ -5,10 +5,7 @@
 package pevezet.plants;
 
 import java.util.ArrayList;
-import pevezet.combine.Combine;
 import pevezet.plants.Bullet;
-import pevezet.zombies.Zombie;
-import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
@@ -25,12 +22,6 @@ public class FlamingThreepeater extends Plant {
     public FlamingThreepeater(Plant p) {
         super(p);
     }
-    
-//    public void attack(int y, int x, ArrayList<Zombie>[] zombies) {
-//        for(Zombie  i : zombies[y]) {
-//            
-//        }
-//    }
 
     public int getPeaCtr() {
         return peaCtr;

@@ -830,11 +830,6 @@ public class Adventure extends PApplet {
         }
     }
     public void plantSeed() {
-        //buat kotak tekan plantfood
-//        fill(255,255,255);
-//        noStroke();
-//        rect(plantFood.getX(),plantFood.getY(),plantFood.getWidth(),plantFood.getHeight());
-//        image(plantFoodImg[food], plantFood.getX(),plantFood.getY());
         int ctr = 1;
         for(Plant i : plants) {
             image(i.getSeed(), 75+(ctr*90), 7, 65, 84);
@@ -863,9 +858,6 @@ public class Adventure extends PApplet {
             image(shovelImg, 726, -5, 122, 92);
         }
         if(plantFoodSelect) {
-//            fill(0,0,0, 75);
-//            noStroke();
-//            rect(plantFood.getX(),plantFood.getY(),plantFood.getWidth(),plantFood.getHeight());
             image(plantFoodImg[food + 5], plantFood.getX(),plantFood.getY());
             image(plantFoodImg[11], plantFood.getX() + 14, plantFood.getY() + 11, 60, 65);
         }
@@ -898,17 +890,11 @@ public class Adventure extends PApplet {
     }
     
     public void drawPlant() {
-//        fill(0,0,0,75);
-//        rect(110, 100, 1110, 600);
         int y = 5;
         if(level>5)
             y = 6;
         for(int i = 0; i < y; i++){
             for(int j = 0; j < 9; j++){
-//                        noFill();
-//                        stroke(0, 0, 0);
-//                        rect(tiles[i][j].getTile().getX(),tiles[i][j].getTile().getY(),tiles[i][j].getTile().getWidth(),tiles[i][j].getTile().getHeight());
-//                        fill(0,0,0,75);
                 if(tiles[i][j].hasPlant())
                 {
                     for (int l = 0; l < tiles[i][j].getAllPlants().size(); l++) {
@@ -1007,13 +993,7 @@ public class Adventure extends PApplet {
                             if(twinflowers.getSunCtr() % 500 == 0) {
                                 twinflowers.addSun(bulletActive[6], bullets.get(0), -1, -1);
                             }
-                        } 
-    //                    else if(i < 4 && tiles[i][j].getPlant() instanceof GreatWall && tiles[i + 1][j].getPlant() == tiles[i][j].getPlant()) {
-    //                        Great twinflowers = (TwinFlowers)tiles[i][j].getPlant();
-    //                        twinflowers.setSunCtr(twinflowers.getSunCtr() + 1);
-    //                        if(twinflowers.getSunCtr() % 500 == 0) {
-    //                            twinflowers.addSun(bulletActive[5], bullets.get(0), -1, -1);
-    //                        }
+                        }
                     }
                 }
             }
@@ -1077,13 +1057,10 @@ public class Adventure extends PApplet {
                         i.setEatSize(eatSize);
                         i.setIdle(idle);
                         i.setEat(eat);
-//                        //System.out.println("ganti");
                         int x = (i.getX() - 50) / 128,  ye = (i.getY() - 100) / 115 + 1;
                         for(int a = Math.max(8, x - 1); a >= 0; a--) {
-//                            //System.out.println(ye + " " + a);
                             if(tiles[ye][a].hasPlant()) {
                                 int jarak = i.getX() - tiles[ye][a].getPlant().getX() - 20, changeY, changeX;
-//                                //System.out.println("ketemu " + jarak);
                                 if(jarak > 102) {
                                     changeY = 1;
                                     changeX = jarak/102;
@@ -1092,10 +1069,7 @@ public class Adventure extends PApplet {
                                     changeX = 1;
                                     changeY = 102/jarak;
                                 }
-                                //System.out.println("tambah " + zombies.get(6));
                                 zombieActive[j].add(new Imp(zombies.get(6), i.getX(), i.getY() - 50, i.getY(), changeY, changeX));
-                                //System.out.println("posisi akhir " + (i.getY() + 70));
-//                                //System.out.println(changeX);
                                 break;
                             }
                         }
@@ -1104,7 +1078,6 @@ public class Adventure extends PApplet {
                 }
                 if(i instanceof Imp && !((Imp)i).jalan() && i.getWalkCtr() % ((Imp)i).getChangeX()== 0) {
                     i.setY(i.getY() + 2);
-//                    //System.out.println(i.getY());
                 }
                 //Zombie jalan
                 if(i instanceof Imp && !((Imp)i).jalan() && i.getWalkCtr() % 3 == 0) {
@@ -1391,7 +1364,6 @@ public class Adventure extends PApplet {
             else if(overRect(105, 100, 1115, 600)) {
                 //x = kolom tile, y = baris tile
                 int x = (mouseX - 105) / 124,  y = (mouseY - 100) / 103;
-    //            //System.out.println(select);
                 if (select != null && playerSun >= select.getPrice()) {
 
                     boolean bisaDitanam = false;
@@ -1782,7 +1754,6 @@ public class Adventure extends PApplet {
         else if(overRect(105, 100, 1115, 600)) {
             //x = kolom tile, y = baris tile
             int x = (mouseX - 105) / 124,  y = (mouseY - 100) / 103;
-//            //System.out.println(select);
             if (select != null && playerSun >= select.getPrice()) {
 
                 boolean bisaDitanam = false;

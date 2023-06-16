@@ -5,7 +5,6 @@
 package pevezet.plants;
 
 import java.util.ArrayList;
-import pevezet.combine.Combine;
 import pevezet.plants.Bullet;
 import processing.core.PImage;
 

@@ -11,7 +11,6 @@ import pevezet.plants.FlamingThreepeater;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
-import pevezet.combine.*;
 import pevezet.plants.*;
 import pevezet.zombies.*;
 import processing.core.PApplet;
@@ -411,12 +410,6 @@ public class Survival extends PApplet {
                 }
             }
         }
-//        tiles = new Tile[6][9];
-//        for(int i = 0; i < 6; i++)
-//        {
-//            for(int j = 0; j < 9; j++)
-//                tiles[i][j] = new Tile(i, j, 103, 124, 105, 100);
-//        }
         
         PImage[] idle = new PImage[100];
         lawnMower = new LawnMower[6];
@@ -463,9 +456,6 @@ public class Survival extends PApplet {
             hoverMenuGame();
             
             //Bar Plant Food
-//            fill(255,255,255);
-//            noStroke();
-//            rect(plantFood.getX(),plantFood.getY(),plantFood.getWidth(),plantFood.getHeight());
             image(plantFoodImg[food], plantFood.getX(),plantFood.getY());
 
             //Pick Plant
@@ -485,9 +475,9 @@ public class Survival extends PApplet {
                 //Update time + poin
                 if(millis() - now >= delay)
                     updateTime();
-                fill(255, 255, 0);
-                textSize(60);
-                text(time, 50, 100);
+//                fill(255, 255, 0);
+//                textSize(60);
+//                text(time, 50, 100);
                 fill(0, 0, 0);
                 textSize(18);
                 text(playerSun, 65, 90);
@@ -527,7 +517,6 @@ public class Survival extends PApplet {
         if(bulletActive != null && !pause) {
             for(Bullet i : bulletActive[6]) {
                 if(overRect(i.getBullet().getX(), i.getBullet().getY(), i.getBullet().getWidth(), i.getBullet().getWidth()))
-//                if(mouseX >= i.getBullet().getX() && mouseX <= i.getBullet().getX() + i.getBullet().getWidth() && mouseY >= i.getBullet().getY() && mouseY <= i.getBullet().getY() + i.getBullet().getWidth())
                 {
                     playerSun += i.getDmg();
                     bulletActive[6].remove(i);
@@ -536,7 +525,6 @@ public class Survival extends PApplet {
             }
         }
         if(overRect(grass.getX(), grass.getY(), grass.getWidth(), grass.getHeight()) && !playgrass && !playpool){
-//        if(mouseX >= grass.getX() && mouseX <= grass.getX()+grass.getWidth() && mouseY >= grass.getY() && mouseY <= grass.getY()+grass.getHeight() && !playgrass && !playpool){
             setupGrass();
         }
         else if(overRect(pool.getX(), pool.getY(), pool.getWidth(), pool.getHeight()) && !playgrass && !playpool){
@@ -617,17 +605,9 @@ public class Survival extends PApplet {
                 else if(time>200){
                     zombieget = rand.nextInt(0, 6);
                 }
-                Zombie temp = zombies.get(zombieget);
-                if(temp instanceof DuckyTube || temp instanceof Snorkel) {
-                    if(!tiles[idx][0].isWater())
-                        idx = rand.nextInt(2, 4);
-                }
-                else if(tiles[idx][0].isWater()) {
-                    while(idx == 2 || idx == 3)
-                        idx = rand.nextInt(0, 6);
-                }
             }
-            Zombie temp = zombies.get(zombieget);
+//            Zombie temp = zombies.get(zombieget);
+            Zombie temp = zombies.get(2);
             if(temp instanceof DuckyTube || temp instanceof Snorkel) {
                 if(!tiles[idx][0].isWater())
                     idx = rand.nextInt(2, 4);
@@ -640,15 +620,12 @@ public class Survival extends PApplet {
                 zombieActive[idx].add(new Basic(temp));
             else if(temp instanceof Conehead)
                 zombieActive[idx].add(new Conehead(temp));
-            else if(temp instanceof DuckyTube) {
+            else if(temp instanceof DuckyTube)
                 zombieActive[idx].add(new DuckyTube(temp));
-            }
             else if(temp instanceof Football)
                 zombieActive[idx].add(new Football(temp));
             else if(temp instanceof Gargantuar)
                 zombieActive[idx].add(new Gargantuar(temp));
-//            else if(temp instanceof Imp)
-//                zombieActive[idx].add(new Imp(temp));
             else if(temp instanceof Snorkel)
                 zombieActive[idx].add(new Snorkel(temp));
             temp = zombieActive[idx].get(zombieActive[idx].size() - 1);
@@ -714,11 +691,6 @@ public class Survival extends PApplet {
     }
     
     public void plantSeed() {
-        //buat kotak tekan plantfood
-//        fill(255,255,255);
-//        noStroke();
-//        rect(plantFood.getX(),plantFood.getY(),plantFood.getWidth(),plantFood.getHeight());
-//        image(plantFoodImg[food], plantFood.getX(),plantFood.getY());
         int ctr = 1;
         for(Plant i : plants) {
             image(i.getSeed(), 75+(ctr*90), 7, 65, 84);
@@ -747,9 +719,6 @@ public class Survival extends PApplet {
             image(shovelImg, 726, -5, 122, 92);
         }
         if(plantFoodSelect) {
-//            fill(0,0,0, 75);
-//            noStroke();
-//            rect(plantFood.getX(),plantFood.getY(),plantFood.getWidth(),plantFood.getHeight());
             image(plantFoodImg[food + 5], plantFood.getX(),plantFood.getY());
             image(plantFoodImg[11], plantFood.getX() + 14, plantFood.getY() + 11, 60, 65);
         }
@@ -782,8 +751,6 @@ public class Survival extends PApplet {
     }
     
     public void drawPlant() {
-//        fill(0,0,0,75);
-//        rect(110, 100, 1110, 600);
         int y = 5;
         if(playpool)
             y = 6;
@@ -791,10 +758,6 @@ public class Survival extends PApplet {
         {
             for(int j = 0; j < 9; j++)
             {
-//                        noFill();
-//                        stroke(0, 0, 0);
-//                        rect(tiles[i][j].getTile().getX(),tiles[i][j].getTile().getY(),tiles[i][j].getTile().getWidth(),tiles[i][j].getTile().getHeight());
-//                        fill(0,0,0,75);
                 if(tiles[i][j].hasPlant())
                 {
                     for (int l = 0; l < tiles[i][j].getAllPlants().size(); l++) {
@@ -893,13 +856,7 @@ public class Survival extends PApplet {
                             if(twinflowers.getSunCtr() % 500 == 0) {
                                 twinflowers.addSun(bulletActive[6], bullets.get(0), -1, -1);
                             }
-                        } 
-    //                    else if(i < 4 && tiles[i][j].getPlant() instanceof GreatWall && tiles[i + 1][j].getPlant() == tiles[i][j].getPlant()) {
-    //                        Great twinflowers = (TwinFlowers)tiles[i][j].getPlant();
-    //                        twinflowers.setSunCtr(twinflowers.getSunCtr() + 1);
-    //                        if(twinflowers.getSunCtr() % 500 == 0) {
-    //                            twinflowers.addSun(bulletActive[5], bullets.get(0), -1, -1);
-    //                        }
+                        }
                     }
                 }
             }
@@ -924,9 +881,6 @@ public class Survival extends PApplet {
                 //Cek Lawn Mower
                 if(i.getX() < 40) {
                     if(lawnMower[j] == null) {
-//                        fill(0, 0, 0);
-//                        textSize(60);
-//                        text("Game Over", 50, 100);
                         gameover = true;
                     }
                     else {
@@ -975,10 +929,7 @@ public class Survival extends PApplet {
                                     changeX = 1;
                                     changeY = 102/jarak;
                                 }
-                                //System.out.println("tambah " + zombies.get(6));
                                 zombieActive[j].add(new Imp(zombies.get(6), i.getX(), i.getY() - 50, i.getY(), changeY, changeX));
-                                //System.out.println("posisi akhir " + (i.getY() + 70));
-//                                //System.out.println(changeX);
                                 break;
                             }
                         }
@@ -987,7 +938,6 @@ public class Survival extends PApplet {
                 }
                 if(i instanceof Imp && !((Imp)i).jalan() && i.getWalkCtr() % ((Imp)i).getChangeX()== 0) {
                     i.setY(i.getY() + 2);
-//                    //System.out.println(i.getY());
                 }
                 //Zombie jalan
                 if(i instanceof Imp && !((Imp)i).jalan() && i.getWalkCtr() % 3 == 0) {
@@ -1130,7 +1080,6 @@ public class Survival extends PApplet {
         //Pick Plant
         if(pickplant) {
             if(overRect(89,205,374,212)) {
-//            if(mouseX >= 89 && mouseX <= 463 && mouseY >= 205 && mouseY <= 417) {
                 int x = (mouseX - 89) / 101,  y = (mouseY - 205) / 115, idx = y * 4 + x;
 
                 if(mouseX > 157+(x*102) || mouseY > 301+(y*116) || idx == 7)
@@ -1158,7 +1107,6 @@ public class Survival extends PApplet {
                 }
             }
             else if(overRect(165,7,425,84)) {
-//            else if(mouseX >= 165 && mouseX <= 590 && mouseY >= 7 && mouseY <= 91) {
                 shovelSelect = false;
                 //idx = index plant yang ditekan
                 int idx = (mouseX - 165) / 90;
@@ -1168,7 +1116,6 @@ public class Survival extends PApplet {
                     plants.remove(idx);
             }
             else if(overRect(200,600,150,30) && plants.size() == 5) {
-//            else if(mouseX >= 200 && mouseX <= 350 && mouseY >= 600 && mouseY <= 630 && plants.size() == 5) {
                 pickplant = false;
                 if(playgrass)
                     playGrass();
@@ -1191,14 +1138,12 @@ public class Survival extends PApplet {
         }
         //Select shovel
         else if(overRect(shovel.getX(), shovel.getY(), shovel.getWidth(), shovel.getHeight()) && plants.size() == 5) {
-//        else if(mouseX >= shovel.getX() && mouseX <= shovel.getX()+shovel.getWidth() && mouseY >= shovel.getY() && mouseY <= shovel.getY()+shovel.getHeight()){
             shovelSelect = true;
             plantFoodSelect = false;
             select = null;
         }
         //Select plant food
         else if(overRect(plantFood.getX(), plantFood.getY(), plantFood.getWidth(), plantFood.getHeight()) && food > 0) {
-//        else if(mouseX >= shovel.getX() && mouseX <= shovel.getX()+shovel.getWidth() && mouseY >= shovel.getY() && mouseY <= shovel.getY()+shovel.getHeight()){
             plantFoodSelect = true;
             shovelSelect = false;
             select = null;
@@ -1206,7 +1151,6 @@ public class Survival extends PApplet {
 
         //Tanam plant
         else if(overRect(50, 100, 1160, 580)) {
-//        else if(mouseX >= 50 && mouseX <= 1210 && mouseY >= 100 && mouseY <= 680) {
             //x = kolom tile, y = baris tile
             int x = (mouseX - 50) / 128,  y = (mouseY - 100) / 115;
             if(!tiles[y][x].hasPlant() && select != null && playerSun >= select.getPrice())
@@ -1244,7 +1188,7 @@ public class Survival extends PApplet {
             //cek combine
             else if(tiles[y][x].hasPlant() && plantFoodSelect) {    
                 Plant temp = tiles[y][x].getPlant();
-                if(y < 4 && temp instanceof Torchwood) {
+                if(y < 4 && temp instanceof Torchwood && tiles[y + 1][x].hasPlant()) {
                     if(tiles[y + 1][x].getPlant() instanceof Wallnut) {
                         temp = combinePlant.get(1);
                         temp.setX(tiles[y][x].getTile().getX() + 5);
@@ -1253,7 +1197,7 @@ public class Survival extends PApplet {
                         tiles[y + 1][x].setPlant(null);
                         food--;
                     }
-                    else if(y > 0 && tiles[y - 1][x].getPlant() instanceof Peashooter && tiles[y + 1][x].getPlant() instanceof Peashooter) {
+                    else if(y > 0 && tiles[y - 1][x].hasPlant() && tiles[y + 1][x].hasPlant() && tiles[y - 1][x].getPlant() instanceof Peashooter && tiles[y + 1][x].getPlant() instanceof Peashooter) {
                         temp = combinePlant.get(0);
                         temp.setX(tiles[y][x].getTile().getX() + 5);
                         temp.setY(tiles[y][x].getTile().getY() + 5);
@@ -1264,7 +1208,7 @@ public class Survival extends PApplet {
                         food--;
                     }
                 }
-                else if(y < 4 && temp instanceof Wallnut) {
+                else if(y < 4 && tiles[y + 1][x].hasPlant() && temp instanceof Wallnut) {
                     if(tiles[y + 1][x].getPlant() instanceof Torchwood) {
                         temp = combinePlant.get(1);
                         temp.setX(tiles[y][x].getTile().getX() + 5);
@@ -1284,7 +1228,7 @@ public class Survival extends PApplet {
                         food--;
                     }
                 }
-                else if(y < 4 && temp instanceof Sunflower && tiles[y + 1][x].getPlant() instanceof Sunflower) {
+                else if(y < 4 && tiles[y + 1][x].hasPlant() && temp instanceof Sunflower && tiles[y + 1][x].getPlant() instanceof Sunflower) {
                     temp = combinePlant.get(2);
                     temp.setX(tiles[y][x].getTile().getX() + 5);
                     temp.setY(tiles[y][x].getTile().getY() + 5);
@@ -1301,13 +1245,11 @@ public class Survival extends PApplet {
         //Menu
         if(pressMenu())
             return;
-//            
+        
         //Pick Plant
         if(pickplant) {
             if(overRect(89,205,374,328)) {
-//                if(mouseX >= 89 && mouseX <= 463 && mouseY >= 205 && mouseY <= 533) {
                 int x = (mouseX - 89) / 101,  y = (mouseY - 205) / 115, idx = y * 4 + x;
-                //System.out.println(idx);
                 if(mouseX > 157+(x*102) || mouseY > 301+(y*116))
                     return;
                 for(Plant i : plants) {
@@ -1339,7 +1281,6 @@ public class Survival extends PApplet {
                 }
             }
             else if(overRect(165,7,425,84)) {
-//                else if(mouseX >= 165 && mouseX <= 590 && mouseY >= 7 && mouseY <= 91) {
                 shovelSelect = false;
                 //idx = index plant yang ditekan
                 int idx = (mouseX - 165) / 90;
@@ -1349,7 +1290,6 @@ public class Survival extends PApplet {
                     plants.remove(idx);
             }
             else if(overRect(200,600,150,30) && plants.size() == 5) {
-//                else if(mouseX >= 200 && mouseX <= 350 && mouseY >= 600 && mouseY <= 630 && plants.size() == 5) {
                 pickplant = false;
                 if(playgrass)
                     playGrass();
@@ -1358,7 +1298,7 @@ public class Survival extends PApplet {
             }
             return;
         }
-//            
+        
         //Select plant
         if(overRect(165,7,425,84)) {
             shovelSelect = false;
@@ -1372,14 +1312,12 @@ public class Survival extends PApplet {
         }
         //Select shovel
         else if(overRect(shovel.getX(), shovel.getY(), shovel.getWidth(), shovel.getHeight()) && plants.size() == 5) {
-//            else if(mouseX >= shovel.getX() && mouseX <= shovel.getX()+shovel.getWidth() && mouseY >= shovel.getY() && mouseY <= shovel.getY()+shovel.getHeight()){
             shovelSelect = true;
             plantFoodSelect = false;
             select = null;
         }
         //Select plant food
         else if(overRect(plantFood.getX(), plantFood.getY(), plantFood.getWidth(), plantFood.getHeight()) && food > 0) {
-//        else if(mouseX >= shovel.getX() && mouseX <= shovel.getX()+shovel.getWidth() && mouseY >= shovel.getY() && mouseY <= shovel.getY()+shovel.getHeight()){
             plantFoodSelect = true;
             shovelSelect = false;
             select = null;
@@ -1389,7 +1327,6 @@ public class Survival extends PApplet {
         else if(overRect(105, 100, 1115, 600)) {
             //x = kolom tile, y = baris tile
             int x = (mouseX - 105) / 124,  y = (mouseY - 100) / 103;
-//            //System.out.println(select);
             if (select != null && playerSun >= select.getPrice()) {
 
                 boolean bisaDitanam = false;
@@ -1451,35 +1388,10 @@ public class Survival extends PApplet {
                 }
 
             }
-//            if(!tiles[y][x].hasPlant() && select != null && playerSun >= select.getPrice())
-//            {
-////                //System.out.println("tanam");
-//                playerSun -= select.getPrice();
-//                select.setX(tiles[y][x].getTile().getX() + 5);
-//                select.setY(tiles[y][x].getTile().getY() + 5);
-//                if(select instanceof CherryBomb)
-//                    tiles[y][x].setPlant(new CherryBomb(select));
-//                else if(select instanceof CoconutCannon)
-//                    tiles[y][x].setPlant(new CoconutCannon(select));
-//                else if(select instanceof Lilypad)
-//                    tiles[y][x].setPlant(new Lilypad(select));
-//                else if(select instanceof Peashooter)
-//                    tiles[y][x].setPlant(new Peashooter(select));
-//                else if(select instanceof PotatoMine)
-//                    tiles[y][x].setPlant(new PotatoMine(select));
-//                else if(select instanceof SnowPea)
-//                    tiles[y][x].setPlant(new SnowPea(select));
-//                else if(select instanceof Sunflower)
-//                    tiles[y][x].setPlant(new Sunflower(select));
-//                else if(select instanceof TangleKelp)
-//                    tiles[y][x].setPlant(new TangleKelp(select));
-//                else if(select instanceof Torchwood)
-//                    tiles[y][x].setPlant(new Torchwood(select));
-//                else if(select instanceof Wallnut)
-//                    tiles[y][x].setPlant(new Wallnut(select));
-//                select.setTimer(select.getRecharge());
-//                select = null;
-//            }
+            else if(tiles[y][x].hasPlant() && shovelSelect) {
+                tiles[y][x].setPlant(null);
+                shovelSelect = false;
+            }
             //Attack Coconut Cannon
             else if(tiles[y][x].hasPlant() && tiles[y][x].getPlant() instanceof CoconutCannon) {
                 CoconutCannon coconut = (CoconutCannon)tiles[y][x].getPlant();
@@ -1487,14 +1399,10 @@ public class Survival extends PApplet {
                     coconut.setCtr(-1);
                 }
             }
-            else if(tiles[y][x].hasPlant() && shovelSelect) {
-                tiles[y][x].setPlant(null);
-                shovelSelect = false;
-            }
             //cek combine
             else if(tiles[y][x].hasPlant() && plantFoodSelect) {    
                 Plant temp = tiles[y][x].getPlant();
-                if(y < 4 && temp instanceof Torchwood) {
+                if(y < 5 && temp instanceof Torchwood) {
                     if(tiles[y + 1][x].hasPlant() && tiles[y + 1][x].getPlant() instanceof Wallnut) {
                         temp = combinePlant.get(1);
                         temp.setX(tiles[y][x].getTile().getX() + 5);
@@ -1514,7 +1422,7 @@ public class Survival extends PApplet {
                         food--;
                     }
                 }
-                else if(y < 4 && temp instanceof Wallnut) {
+                else if(y < 5 && temp instanceof Wallnut) {
                     if(tiles[y + 1][x].hasPlant() && tiles[y + 1][x].getPlant() instanceof Torchwood) {
                         temp = combinePlant.get(1);
                         temp.setX(tiles[y][x].getTile().getX() + 5);
@@ -1534,7 +1442,7 @@ public class Survival extends PApplet {
                         food--;
                     }
                 }
-                else if(y < 4 && tiles[y + 1][x].hasPlant() && temp instanceof Sunflower && tiles[y + 1][x].getPlant() instanceof Sunflower) {
+                else if(y < 5 && tiles[y + 1][x].hasPlant() && temp instanceof Sunflower && tiles[y + 1][x].getPlant() instanceof Sunflower) {
                     temp = combinePlant.get(2);
                     temp.setX(tiles[y][x].getTile().getX() + 5);
                     temp.setY(tiles[y][x].getTile().getY() + 5);

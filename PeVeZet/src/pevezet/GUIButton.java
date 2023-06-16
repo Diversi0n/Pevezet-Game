@@ -62,15 +62,4 @@ public class GUIButton {
     public void setHeight(int height) {
         this.height = height;
     }
-
-    public Color getBgcolor() {
-        return bgcolor;
-    }
-
-    public void setBgcolor(Color bgcolor) {
-        this.bgcolor = bgcolor;
-    }
-    
-    
-    
 }

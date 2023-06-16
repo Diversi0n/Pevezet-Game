@@ -25,47 +25,32 @@ public class Imp extends Zombie {
         this.changeY = changeY;
         this.changeX = changeX;
     }
-    
+
+    @Override
+    public void drawEat(PApplet app) {
+        if(ctr > -1)
+        {
+            app.image(eat[ctr / (4*speed) % eatSize],x,y+20, 160, 180);
+            ctr %= 4 * speed * eatSize;
+        }
+    }
+
     public boolean jalan() {
         if(this.y == yawal)
             return true;
         else
             return false;
     }
-
-    @Override
-    public void drawEat(PApplet app) {
-        if(ctr > -1)
-        {
-//            System.out.println(ctr + " " + speed + " " + eatSize);
-            app.image(eat[ctr / (4*speed) % eatSize],x,y+20, 160, 180);
-            ctr %= 4 * speed * eatSize;
-        }
-    }
-
+    
     public int getYawal() {
         return yawal;
-    }
-
-    public void setYawal(int yawal) {
-        this.yawal = yawal;
     }
 
     public int getChangeY() {
         return changeY;
     }
 
-    public void setChangeY(int changeY) {
-        this.changeY = changeY;
-    }
-
     public int getChangeX() {
         return changeX;
     }
-
-    public void setChangeX(int changeX) {
-        this.changeX = changeX;
-    }
-    
-    
 }

@@ -64,7 +64,6 @@ public abstract class Zombie {
     public void drawEat(PApplet app){
         if(ctr > -1)
         {
-//            System.out.println(ctr + " " + speed + " " + eatSize);
             app.image(eat[ctr / (4*speed) % eatSize],x,y, 150, 150);
             ctr %= 4 * speed * eatSize;
         }
@@ -114,16 +113,8 @@ public abstract class Zombie {
         return dmg;
     }
 
-    public void setDmg(int dmg) {
-        this.dmg = dmg;
-    }
-
     public int getSpeed() {
         return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     public int getCtr() {
@@ -134,10 +125,6 @@ public abstract class Zombie {
         this.ctr = ctr;
     }
 
-    public int getIdleSize() {
-        return idleSize;
-    }
-
     public void setIdleSize(int idleSize) {
         this.idleSize = idleSize;
     }
@@ -146,10 +133,6 @@ public abstract class Zombie {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-    
     public int getWalkCtr() {
         return walkCtr;
     }
@@ -158,21 +141,11 @@ public abstract class Zombie {
         this.walkCtr = walkCtr;
     }
 
-    public PImage[] getEat() {
-        return eat;
-    }
-
     public void setEat(PImage[] eat) {
         this.eat = eat;
-    }
-
-    public int getEatSize() {
-        return eatSize;
     }
 
     public void setEatSize(int eatSize) {
         this.eatSize = eatSize;
     }
-    
-    
 }

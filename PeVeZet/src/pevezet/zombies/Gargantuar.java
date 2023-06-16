@@ -27,7 +27,6 @@ public class Gargantuar extends Zombie {
     public void drawEat(PApplet app) {
         if(ctr > -1)
         {
-//            System.out.println(ctr + " " + speed + " " + eatSize);
             app.image(eat[ctr / (4*speed) % eatSize],x,y-80, 200, 250);
             ctr %= 4 * speed * eatSize;
         }
@@ -48,7 +47,5 @@ public class Gargantuar extends Zombie {
     public void setLempar(boolean lempar) {
         this.lempar = lempar;
     }
-    
-    
 }
 

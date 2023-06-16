@@ -21,12 +21,17 @@ public class Snorkel extends Zombie {
         this.swim = swim;
         this.swimSize = 29;
     }
+    
+    public Snorkel(Zombie z) {
+        super(z);
+        this.swim = ((Snorkel)z).swim;
+        this.swimSize = 29;
+    }
 
     @Override
     public void drawEat(PApplet app) {
         if(ctr > -1)
         {
-//            System.out.println(ctr + " " + speed + " " + eatSize);
             app.image(eat[ctr / (4*speed) % eatSize],x,y-30, 190, 190);
             ctr %= 4 * speed * eatSize;
         }
@@ -42,11 +47,5 @@ public class Snorkel extends Zombie {
                 app.image(swim[ctr / (4*speed) % swimSize],x - 50,y + 10, 190, 190);
             ctr %= 2 * speed * idleSize;
         }
-    }
-    
-    public Snorkel(Zombie z) {
-        super(z);
-        this.swim = ((Snorkel)z).swim;
-        this.swimSize = 29;
     }
 }

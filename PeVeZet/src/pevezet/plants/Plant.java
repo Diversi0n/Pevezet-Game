@@ -136,17 +136,4 @@ public abstract class Plant {
     public int getHealth() {
         return health;
     }
-    
-//    public void copy(Plant x) {
-//        this.price = x.price;
-//        this.hp = x.hp;
-//        this.recharge = x.recharge;
-//        this.dmg = x.dmg;
-//        this.idle = x.idle;
-//        this.seed = x.seed;
-//        this.timer = 0;
-//        this.ctr = -1;
-//        this.idleSize = x.idleSize;
-//        this.health = x.health;
-//    }
 }
