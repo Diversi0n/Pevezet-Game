@@ -530,9 +530,7 @@ public class Adventure extends PApplet {
         if(pause) {
             return;
         }
-//        if(levelselect){
-            background(bg);
-//        }
+        background(bg);
         if(gameover) {
             ThemeSong.pause();
             noStroke();
@@ -722,8 +720,7 @@ public class Adventure extends PApplet {
                 cekclear=true;
             }
             if(cekclear!=true){
-                Zombie temp = zombies.get(4);
-//                Zombie temp = zombies.get(zombieget);
+                Zombie temp = zombies.get(zombieget);
                 if(temp instanceof DuckyTube || temp instanceof Snorkel) {
                     if(!tiles[idx][0].isWater())
                         idx = rand.nextInt(2, 4);
