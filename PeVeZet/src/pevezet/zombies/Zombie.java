@@ -5,8 +5,7 @@
 package pevezet.zombies;
 
 import pevezet.Tile;
-import pevezet.plants.CherryBomb;
-import pevezet.plants.Wallfire;
+import pevezet.plants.*;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -72,7 +71,7 @@ public abstract class Zombie {
     }
     
     public boolean makan(Tile t) {
-        if(t.hasPlant() && !(t.getPlant() instanceof CherryBomb)) {
+        if(t.hasPlant() && !(t.getPlant() instanceof CherryBomb) && !(t.getPlant() instanceof TangleKelp)) {
             if(x < t.getTile().getX() + 75)
                 return true;
         }

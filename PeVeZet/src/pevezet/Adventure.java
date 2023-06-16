@@ -71,10 +71,10 @@ public class Adventure extends PApplet {
         pause = false;
         pickplant = false;
         time = 0;
-        playerSun = 1000;
+        playerSun = 50;
         shovel = new GUIButton(730,0,110,85, new Color(255,255,0, 0));
         shovelSelect = false;
-        food = 3;
+        food = 5;
         plantFood = new GUIButton(860,0,85,85, new Color(255,255,0, 0));
         plantFoodSelect = false;
         over = loadImage("src/assets/Map/Game Over.png");
@@ -300,6 +300,7 @@ public class Adventure extends PApplet {
         
         idle = new PImage[100];
         eat = new PImage[100];
+        PImage[] swim = new PImage[100];
         idleSize = 22;
         eatSize = 21;
         for(int i = 0; i < idleSize; i++){
@@ -308,10 +309,14 @@ public class Adventure extends PApplet {
         for(int i = 0; i < eatSize; i++){
             eat[i] = loadImage("src/assets/Zombies/DuckyTube/eat/"+(int)Math.floor(i/100)+""+(int)Math.floor(i/10%10)+""+i%10+".png");
         }
-        zombies.add(new DuckyTube(1260, 115, idle, eat));
+        for(int i = 0; i < 29; i++){
+            swim[i] = loadImage("src/assets/Zombies/Snorkel/swim/"+(int)Math.floor(i/100)+""+(int)Math.floor(i/10%10)+""+i%10+".png");
+        }
+        zombies.add(new DuckyTube(1260, 115, idle, eat, swim));
         
         idle = new PImage[100];
         eat = new PImage[100];
+        swim = new PImage[100];
         idleSize = 63;
         eatSize = 33;
         for(int i = 0; i < idleSize; i++){
@@ -320,7 +325,10 @@ public class Adventure extends PApplet {
         for(int i = 0; i < eatSize; i++){
             eat[i] = loadImage("src/assets/Zombies/Snorkel/eat/"+(int)Math.floor(i/100)+""+(int)Math.floor(i/10%10)+""+i%10+".png");
         }
-        zombies.add(new Snorkel(1260, 115, idle, eat));
+        for(int i = 0; i < 29; i++){
+            swim[i] = loadImage("src/assets/Zombies/Snorkel/swim/"+(int)Math.floor(i/100)+""+(int)Math.floor(i/10%10)+""+i%10+".png");
+        }
+        zombies.add(new Snorkel(1260, 115, idle, eat, swim));
         
         idle = new PImage[100];
         eat = new PImage[100];
@@ -522,9 +530,9 @@ public class Adventure extends PApplet {
         if(pause) {
             return;
         }
-        if(levelselect){
+//        if(levelselect){
             background(bg);
-        }
+//        }
         if(gameover) {
             ThemeSong.pause();
             noStroke();
@@ -571,9 +579,9 @@ public class Adventure extends PApplet {
                 //Update time + poin
                 if(millis() - now >= delay)
                     updateTime();
-                fill(255, 255, 0);
-                textSize(60);
-                text(time, 50, 100);
+//                fill(255, 255, 0);
+//                textSize(60);
+//                text(time, 50, 100);
                 fill(0, 0, 0);
                 textSize(18);
                 text(playerSun, 65, 90);
@@ -714,14 +722,23 @@ public class Adventure extends PApplet {
                 cekclear=true;
             }
             if(cekclear!=true){
-    //            Zombie temp = zombies.get(rand.nextInt(0, 7));
-                Zombie temp = zombies.get(zombieget);
+                Zombie temp = zombies.get(4);
+//                Zombie temp = zombies.get(zombieget);
+                if(temp instanceof DuckyTube || temp instanceof Snorkel) {
+                    if(!tiles[idx][0].isWater())
+                        idx = rand.nextInt(2, 4);
+                }
+                else if(tiles[idx][0].isWater()) {
+                    while(idx == 2 || idx == 3)
+                        idx = rand.nextInt(0, 6);
+                }
                 if(temp instanceof Basic)
                     zombieActive[idx].add(new Basic(temp));
                 else if(temp instanceof Conehead)
                     zombieActive[idx].add(new Conehead(temp));
-                else if(temp instanceof DuckyTube)
+                else if(temp instanceof DuckyTube) {
                     zombieActive[idx].add(new DuckyTube(temp));
+                }
                 else if(temp instanceof Football)
                     zombieActive[idx].add(new Football(temp));
                 else if(temp instanceof Gargantuar)
@@ -1063,13 +1080,13 @@ public class Adventure extends PApplet {
                         i.setEatSize(eatSize);
                         i.setIdle(idle);
                         i.setEat(eat);
-//                        System.out.println("ganti");
+//                        //System.out.println("ganti");
                         int x = (i.getX() - 50) / 128,  ye = (i.getY() - 100) / 115 + 1;
                         for(int a = Math.max(8, x - 1); a >= 0; a--) {
-                            System.out.println(ye + " " + a);
+//                            //System.out.println(ye + " " + a);
                             if(tiles[ye][a].hasPlant()) {
                                 int jarak = i.getX() - tiles[ye][a].getPlant().getX() - 20, changeY, changeX;
-                                System.out.println("ketemu " + jarak);
+//                                //System.out.println("ketemu " + jarak);
                                 if(jarak > 102) {
                                     changeY = 1;
                                     changeX = jarak/102;
@@ -1078,10 +1095,10 @@ public class Adventure extends PApplet {
                                     changeX = 1;
                                     changeY = 102/jarak;
                                 }
-                                System.out.println("tambah " + zombies.get(6));
+                                //System.out.println("tambah " + zombies.get(6));
                                 zombieActive[j].add(new Imp(zombies.get(6), i.getX(), i.getY() - 50, i.getY(), changeY, changeX));
-                                System.out.println("posisi akhir " + (i.getY() + 70));
-//                                System.out.println(changeX);
+                                //System.out.println("posisi akhir " + (i.getY() + 70));
+//                                //System.out.println(changeX);
                                 break;
                             }
                         }
@@ -1090,7 +1107,7 @@ public class Adventure extends PApplet {
                 }
                 if(i instanceof Imp && !((Imp)i).jalan() && i.getWalkCtr() % ((Imp)i).getChangeX()== 0) {
                     i.setY(i.getY() + 2);
-//                    System.out.println(i.getY());
+//                    //System.out.println(i.getY());
                 }
                 //Zombie jalan
                 if(i instanceof Imp && !((Imp)i).jalan() && i.getWalkCtr() % 3 == 0) {
@@ -1377,7 +1394,7 @@ public class Adventure extends PApplet {
             else if(overRect(105, 100, 1115, 600)) {
                 //x = kolom tile, y = baris tile
                 int x = (mouseX - 105) / 124,  y = (mouseY - 100) / 103;
-    //            System.out.println(select);
+    //            //System.out.println(select);
                 if (select != null && playerSun >= select.getPrice()) {
 
                     boolean bisaDitanam = false;
@@ -1768,7 +1785,7 @@ public class Adventure extends PApplet {
         else if(overRect(105, 100, 1115, 600)) {
             //x = kolom tile, y = baris tile
             int x = (mouseX - 105) / 124,  y = (mouseY - 100) / 103;
-//            System.out.println(select);
+//            //System.out.println(select);
             if (select != null && playerSun >= select.getPrice()) {
 
                 boolean bisaDitanam = false;
